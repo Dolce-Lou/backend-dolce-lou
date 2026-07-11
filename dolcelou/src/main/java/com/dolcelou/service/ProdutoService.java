@@ -1,0 +1,61 @@
+package com.dolcelou.service;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+import com.dolcelou.model.ProdutoEntity;
+import com.dolcelou.repository.ProdutoRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class ProdutoService {
+
+    private final ProdutoRepository produtoRepository;
+
+    public ProdutoEntity saveProduct(ProdutoEntity produto) {
+        if (!(existsProductByName(produto)) && validateProduct(produto)) {
+            return produtoRepository.save(produto);
+        }
+        throw new RuntimeException("Produto não válido ou já cadastrado na base");
+    }
+
+    public ProdutoEntity updateProduct(ProdutoEntity produto) {
+        if (existProductById(produto) && validateProduct(produto)) {
+            return produtoRepository.save(produto);
+        }
+        throw new RuntimeException("Produto não válido ou não cadastrado na base");
+    }
+    
+    public List<ProdutoEntity> findAllProducts() {
+        return produtoRepository.findAll();
+    }
+
+    public ProdutoEntity findProductById(String id) {
+        return produtoRepository.findById(id).orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+    }
+
+    public void deleteProductById(String id) {
+        produtoRepository.deleteById(id);
+    }
+
+    private boolean existProductById(ProdutoEntity produtoEntity) {
+        return produtoRepository.existsById(produtoEntity.getId());
+    }
+    
+    private boolean validateProduct(ProdutoEntity produtoEntity) {
+        return produtoEntity.getMedida() > 0 
+        && produtoEntity.getPreco().compareTo(BigDecimal.ZERO) > 0 
+        && produtoEntity.getQuantidade() > 0;
+    }
+    
+    private boolean existsProductByName(ProdutoEntity produtoEntity) {
+        var products = produtoRepository.findAll();
+        var count = products.stream()
+            .filter(p -> p.getNome() == produtoEntity.getNome()).count();
+        return count > 0;
+    }
+    
+}

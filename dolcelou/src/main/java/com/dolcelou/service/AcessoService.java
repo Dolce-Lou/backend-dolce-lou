@@ -1,0 +1,27 @@
+package com.dolcelou.service;
+
+import org.springframework.stereotype.Service;
+import com.dolcelou.model.AcessoEntity;
+import com.dolcelou.repository.AcessoRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class AcessoService {
+
+    private final AcessoRepository acessoRepository;
+
+    public AcessoEntity saveAcess(AcessoEntity acesso) {
+        return acessoRepository.save(acesso);
+    }
+
+    public AcessoEntity getAcessById(String id) {
+        return acessoRepository.findById(id)
+        .orElseThrow(null);
+    }
+
+    public void deleteAcessById(String id) {
+        acessoRepository.deleteById(id);
+    }
+}

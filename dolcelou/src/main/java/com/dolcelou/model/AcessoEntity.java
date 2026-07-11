@@ -26,7 +26,14 @@ public class AcessoEntity {
     @Column(nullable = false)
     String email;
 
+    @Column(nullable = false)
     String senha;
 
+    @Column(nullable = false)
     Acesso acesso;
+
+    public enum Acesso {
+        FUNCIONARIO,
+        COMPRADOR
+    }
 }

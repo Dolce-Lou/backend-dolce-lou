@@ -38,5 +38,5 @@ public class ProdutoEntity {
     String descricao;
 
     @Column(nullable = false)
-    Integer quantidade;
+    double quantidade;
 }
