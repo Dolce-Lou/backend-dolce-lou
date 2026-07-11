@@ -22,8 +22,8 @@ public class ProdutoService {
         throw new RuntimeException("Produto não válido ou já cadastrado na base");
     }
 
-    public ProdutoEntity updateProduct(ProdutoEntity produto) {
-        if (existProductById(produto) && validateProduct(produto)) {
+    public ProdutoEntity updateProduct(String id, ProdutoEntity produto) {
+        if (existProductById(id) && validateProduct(produto)) {
             return produtoRepository.save(produto);
         }
         throw new RuntimeException("Produto não válido ou não cadastrado na base");
@@ -41,8 +41,8 @@ public class ProdutoService {
         produtoRepository.deleteById(id);
     }
 
-    private boolean existProductById(ProdutoEntity produtoEntity) {
-        return produtoRepository.existsById(produtoEntity.getId());
+    private boolean existProductById(String id) {
+        return produtoRepository.existsById(id);
     }
     
     private boolean validateProduct(ProdutoEntity produtoEntity) {

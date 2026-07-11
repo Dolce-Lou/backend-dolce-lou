@@ -12,8 +12,8 @@ public class AcessoService {
 
     private final AcessoRepository acessoRepository;
 
-    public AcessoEntity saveAcess(AcessoEntity acesso) {
-        return acessoRepository.save(acesso);
+    public void saveAcess(AcessoEntity acesso) {
+        acessoRepository.save(acesso);
     }
 
     public AcessoEntity getAcessById(String id) {
