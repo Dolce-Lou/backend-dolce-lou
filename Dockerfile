@@ -2,7 +2,7 @@ FROM eclipse-temurin:21-jdk
 
 WORKDIR /app
 
-COPY . .
+COPY ../dolcelou .
 
 RUN chmod +x mvnw || true
 
