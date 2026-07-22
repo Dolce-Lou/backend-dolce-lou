@@ -2,13 +2,12 @@ FROM eclipse-temurin:21-jdk
 
 WORKDIR /app
 
-COPY ../dolcelou .
+COPY . .
 
-RUN chmod +x mvnw || true
+RUN chmod +x mvnw
 
-# Instala o Maven caso o projeto não tenha mvnw
-RUN apt-get update && apt-get install -y maven
+RUN ./mvnw clean package -DskipTests
 
-RUN mvn clean package -DskipTests
+EXPOSE 8080
 
-CMD ["java", "-jar", "target/dolcelou-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "target/dolcelou-0.0.1-SNAPSHOT.jar"]
