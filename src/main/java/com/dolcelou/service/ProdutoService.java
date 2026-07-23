@@ -1,19 +1,19 @@
 package com.dolcelou.service;
 
-import java.math.BigDecimal;
-import java.util.List;
 
-import org.springframework.stereotype.Service;
 import com.dolcelou.model.ProdutoEntity;
 import com.dolcelou.repository.ProdutoRepository;
-
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class ProdutoService {
 
-    private final ProdutoRepository produtoRepository;
+    private ProdutoRepository produtoRepository;
 
     public ProdutoEntity saveProduct(ProdutoEntity produto) {
         if (!(existsProductByName(produto)) && validateProduct(produto)) {
