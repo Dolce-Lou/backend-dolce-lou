@@ -44,7 +44,6 @@ public class CarrinhoEntity {
     BigDecimal preco_total;
 
     @OneToOne
-    @JoinColumn(name = "id_carrinho")
-    @Column(nullable = false)
-    String id_acesso;
+    @JoinColumn(name = "id_acesso", nullable = false)
+    private AcessoEntity acesso;
 }
