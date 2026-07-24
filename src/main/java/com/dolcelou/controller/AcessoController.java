@@ -1,5 +1,7 @@
 package com.dolcelou.controller;
 
+import com.dolcelou.model.ProdutoEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,8 +23,8 @@ public class AcessoController {
     private final AcessoService service;
 
     @GetMapping("/find/{id}")
-    public AcessoEntity getAcessById(@PathVariable String id) {
-        return service.getAcessById(id);
+    public ResponseEntity<AcessoEntity> getAcessById(@PathVariable String id) {
+        return ResponseEntity.ok(service.getAcessById(id));
     }
 
     @PostMapping("/create")

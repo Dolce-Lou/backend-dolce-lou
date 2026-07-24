@@ -18,7 +18,7 @@ public class AcessoService {
 
     public AcessoEntity getAcessById(String id) {
         return acessoRepository.findById(id)
-        .orElseThrow(null);
+        .orElseThrow(() -> new RuntimeException("Não foi possível achar um produto com esse id"));
     }
 
     public void deleteAcessById(String id) {

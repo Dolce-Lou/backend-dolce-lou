@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProdutoService {
 
-    private ProdutoRepository produtoRepository;
+    private final ProdutoRepository produtoRepository;
 
     public ProdutoEntity saveProduct(ProdutoEntity produto) {
         if (!(existsProductByName(produto)) && validateProduct(produto)) {
@@ -54,7 +54,7 @@ public class ProdutoService {
     private boolean existsProductByName(ProdutoEntity produtoEntity) {
         var products = produtoRepository.findAll();
         var count = products.stream()
-            .filter(p -> p.getNome() == produtoEntity.getNome()).count();
+            .filter(p -> p.getNome().equals(produtoEntity.getNome())).count();
         return count > 0;
     }
     

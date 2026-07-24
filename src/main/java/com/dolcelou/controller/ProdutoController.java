@@ -2,13 +2,8 @@ package com.dolcelou.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.dolcelou.model.ProdutoEntity;
 import com.dolcelou.service.ProdutoService;
@@ -16,33 +11,33 @@ import com.dolcelou.service.ProdutoService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("v1/carrinho")
+@RequestMapping("v1/produto")
 @RequiredArgsConstructor
 public class ProdutoController {
 
     private final ProdutoService service;
 
     @GetMapping("/find/{id}")
-    public ProdutoEntity findProductByID(@PathVariable String id) {
-        return service.findProductById(id);
+    public ResponseEntity<ProdutoEntity> findProductByID(@PathVariable String id) {
+        return ResponseEntity.ok(service.findProductById(id));
     }
     
     @PostMapping("/create")
-    public ProdutoEntity createProduct(@RequestBody ProdutoEntity entity) {        
-        return service.saveProduct(entity);
+    public ResponseEntity<ProdutoEntity> createProduct(@RequestBody ProdutoEntity entity) {
+        return ResponseEntity.ok(service.saveProduct(entity));
     }
     
     @PutMapping("update/{id}")
-    public ProdutoEntity updateProduct(@PathVariable String id, @RequestBody ProdutoEntity entity) {
-        return service.updateProduct(id, entity);
+    public ResponseEntity<ProdutoEntity> updateProduct(@PathVariable String id, @RequestBody ProdutoEntity entity) {
+        return ResponseEntity.ok(service.updateProduct(id, entity));
     }
 
     @GetMapping("/findAll")
-    public List<ProdutoEntity> findAll() {
-        return service.findAllProducts();
+    public ResponseEntity<List<ProdutoEntity>> findAll() {
+        return ResponseEntity.ok(service.findAllProducts());
     }
     
-    @GetMapping("/delete")
+    @DeleteMapping("/delete")
     public void deleteProduct(@PathVariable String id) {
         service.deleteProductById(id);
     }
